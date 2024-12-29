@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layout::parent(~{::#content},~{::title})}">
+<head>
+<title>Users</title>
+</head>
+
+<body>
+	<div class="content-wrapper blank-page" id="content">
+		<div class="page-header">
+			<h3 class="page-title">Add User</h3>
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+					<li class="breadcrumb-item active" aria-current="page">User
+						Form</li>
+				</ol>
+			</nav>
+		</div>
+		<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-md-6 grid-margin stretch-card">
+				<div class="card">
+					<div class="card-body">
+						<form class="forms-sample" method="POST" action="/adduser">
+							<div class="form-group">
+								<label for="exampleInputUsername1">Name</label> <input
+									type="text" name="name" class="form-control" id="exampleInputUsername1"
+									placeholder="Name">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputEmail1">Email</label> <input
+									type="email" name="email" class="form-control" id="exampleInputEmail1"
+									placeholder="Email">
+							</div>
+							<div class="text-center">
+								<button type="submit" class="btn btn-primary me-2">Submit</button>
+								<button class="btn btn-dark">Cancel</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</body>
+</html>
+

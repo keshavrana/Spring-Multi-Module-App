@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layout::parent(~{::#content},~{::title})}">
+<head>
+<title>Users</title>
+</head>
+
+<body>
+	<div class="content-wrapper blank-page" id="content">
+		<div class="page-header">
+			<h3 class="page-title">Users Tables</h3>
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Users
+						tables</li>
+				</ol>
+			</nav>
+		</div>
+		<div th:if="${message != null}">
+			<div class="alert alert-success" role="alert" th:text="${message}"></div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12 grid-margin stretch-card">
+				<div class="card">
+					<div class="card-body">
+						<a href="adduser">
+							<button class="btn btn-primary" style="float: right;">Add
+								User</button>
+						</a>
+						<h4 class="card-title">All Users List</h4>
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>SNo</th>
+										<th>Name</th>
+										<th>Email</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="user:${user}">
+										<td th:text="${user.id}"></td>
+										<td th:text="${user.name}"></td>
+										<td th:text="${user.email}"></td>
+										<td>
+											<button class="btn btn-success">Edit</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</body>
+</html>
+
