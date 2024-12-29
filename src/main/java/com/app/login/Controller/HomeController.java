@@ -1,0 +1,28 @@
+package com.app.login.Controller;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class HomeController {
+	@GetMapping("/")
+	public String index() {
+		return "index";
+	}
+
+	@GetMapping("/login")
+	public String login(Model model) {
+		model.addAttribute("user", "Username or email *");
+		model.addAttribute("pass", "Password *");
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication != null && authentication.isAuthenticated()
+				&& !authentication.getPrincipal().equals("anonymousUser")) {
+			return "redirect:/";
+		}
+
+		return "login";
+	}
+}
