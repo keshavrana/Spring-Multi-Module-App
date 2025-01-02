@@ -7,12 +7,16 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.app.login.Model.User;
 import com.app.login.Services.UserServices;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class HomeController {
@@ -45,13 +49,18 @@ public class HomeController {
 	}
 
 	@GetMapping("/adduser")
-	public String addUser() {
+	public String addUser(Model model) {
+		model.addAttribute("userform", new User());
 		return "userfrom";
 	}
 
 	@PostMapping("/adduser")
-	public String addUser1(Model model, User user, @AuthenticationPrincipal UserDetails userDetails,
-			RedirectAttributes redirectAttributes) {
+	public String addUser1(@Valid @ModelAttribute("userform") User user, BindingResult result,
+			@AuthenticationPrincipal UserDetails userDetails, RedirectAttributes redirectAttributes) {
+
+		if (result.hasErrors()) {
+			return "userfrom";
+		}
 		User user1 = new User(user.getName(), user.getEmail(), userDetails.getUsername());
 		userServices.adduser(user1);
 		redirectAttributes.addFlashAttribute("message", "User Created Successfully.");
