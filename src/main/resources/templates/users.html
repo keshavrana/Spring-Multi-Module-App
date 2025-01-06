@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{layout::parent(~{::#content},~{::title})}">
+<html lang="en"
+	th:replace="~{layout::parent(~{::#content},~{::title},~{::script})}"
+	xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Users</title>
 </head>
@@ -45,6 +47,8 @@
 										<td th:text="${user.email}"></td>
 										<td>
 											<button class="btn btn-success">Edit</button>
+											<button class="btn btn-danger"
+												th:onclick="'deleteUser(' + ${user.id} + ')'">Delete</button>
 										</td>
 									</tr>
 								</tbody>
@@ -58,5 +62,15 @@
 	</div>
 
 </body>
+<script type="text/javascript">
+	function deleteUser(id) {
+		if (confirm("Are you Sure To Delete This")) {
+			window.location.href = "/deleteUser/" + id;
+		} else {
+			alert("Data is Safe");
+		}
+
+	}
+</script>
 </html>
 

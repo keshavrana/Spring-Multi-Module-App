@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -63,6 +64,13 @@ public class HomeController {
 		}
 		User user1 = new User(user.getName(), user.getEmail(), userDetails.getUsername());
 		userServices.adduser(user1);
+		redirectAttributes.addFlashAttribute("message", "User Created Successfully.");
+		return "redirect:/users";
+	}
+
+	@GetMapping("/deleteUser/{id}")
+	public String delteUser(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+		userServices.delteUserById(id);
 		redirectAttributes.addFlashAttribute("message", "User Created Successfully.");
 		return "redirect:/users";
 	}
