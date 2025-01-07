@@ -41,12 +41,12 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr th:each="user:${user}">
-										<td th:text="${user.id}"></td>
+									<tr th:each="user,iter:${user}">
+										<td th:text="${iter.count}"></td>
 										<td th:text="${user.name}"></td>
 										<td th:text="${user.email}"></td>
-										<td>
-											<button class="btn btn-success">Edit</button>
+										<td><a th:href="'editUser/'+${user.id}"><button
+													class="btn btn-success">Edit</button></a>
 											<button class="btn btn-danger"
 												th:onclick="'deleteUser(' + ${user.id} + ')'">Delete</button>
 										</td>

@@ -15,19 +15,27 @@ public class UserServices {
 	public UserServices(UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
-	
+
 	public List<User> getAllUsers() {
 		return userRepository.findAll();
 	}
-	
+
 	public User adduser(User user) {
 		return userRepository.save(user);
 	}
-	
+
 	public void delteUserById(Long id) {
 		userRepository.deleteById(id);
-	
+
 	}
-	
+
+	public User getUserById(Long id) {
+		return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+
+	}
+
+	public void updateUser(User user) {
+		userRepository.save(user);
+	}
 
 }

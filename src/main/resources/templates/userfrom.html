@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{layout::parent(~{::#content},~{::title},~{::script})}"
+<html lang="en"
+	th:replace="~{layout::parent(~{::#content},~{::title},~{::script})}"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Users</title>
@@ -8,7 +9,8 @@
 <body>
 	<div class="content-wrapper blank-page" id="content">
 		<div class="page-header">
-			<h3 class="page-title">Add User</h3>
+			<h3 class="page-title"
+				th:text="${userform.id}==null ? 'Add User': 'Edit User'"></h3>
 			<nav aria-label="breadcrumb">
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="/">Dashboard</a></li>
@@ -23,7 +25,8 @@
 				<div class="card">
 					<div class="card-body">
 						<form class="forms-sample" method="POST" th:object="${userform}"
-							action="/adduser">
+							th:action="${userform.id} == null ? @{/adduser} : @{/updateuser}">
+							<input type="hidden" name="id" th:value="${userform.id}">
 							<div class="form-group">
 								<label for="exampleInputUsername1">Name</label> <input
 									type="text" name="name" class="form-control"
@@ -48,7 +51,7 @@
 									th:text="${e}"></p>
 							</div>
 							<div class="text-center">
-								<button type="submit" class="btn btn-primary me-2">Submit</button>
+								<button type="submit" class="btn btn-primary me-2" th:text="${userform.id}==null ? 'Submit': 'Update'"></button>
 								<button type="reset" class="btn btn-dark">Reset</button>
 							</div>
 						</form>
@@ -60,5 +63,6 @@
 	</div>
 
 </body>
+<script type="text/javascript"></script>
 </html>
 

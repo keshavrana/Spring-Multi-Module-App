@@ -71,7 +71,27 @@ public class HomeController {
 	@GetMapping("/deleteUser/{id}")
 	public String delteUser(@PathVariable Long id, RedirectAttributes redirectAttributes) {
 		userServices.delteUserById(id);
-		redirectAttributes.addFlashAttribute("message", "User Created Successfully.");
+		redirectAttributes.addFlashAttribute("message", "User Deleted Successfully.");
 		return "redirect:/users";
+	}
+
+	@GetMapping("/editUser/{id}")
+	public String editUser(@PathVariable Long id, Model model) {
+		User user = userServices.getUserById(id);
+		model.addAttribute("userform", user);
+		return "userfrom";
+	}
+
+	@PostMapping("/updateuser")
+	public String updateUser(@Valid @ModelAttribute("userform") User user, BindingResult result,
+			RedirectAttributes redirectAttributes, Model model) {
+		if (result.hasErrors()) {
+			model.addAttribute("userform", user);
+			return "userfrom";
+		}
+		userServices.updateUser(user);
+		redirectAttributes.addFlashAttribute("message", "User Updated Successfully.");
+		return "redirect:/users";
+
 	}
 }
