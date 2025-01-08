@@ -22,6 +22,7 @@ public class User {
 	@NotEmpty(message = "Email is required")
 	@Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "Invalid email address")
 	private String email;
+	private String password;
 	private String created_by;
 	private LocalDate created_at;
 
@@ -70,18 +71,20 @@ public class User {
 		this.created_at = created_at;
 	}
 
-	public User(Long id, String name, String email, String created_by) {
+	public User(Long id, String name, String email,String password, String created_by) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
+		this.password = password;
 		this.created_by = created_by;
 	}
 
-	public User(String name, String email, String created_by) {
+	public User(String name, String email, String password, String created_by) {
 		super();
 		this.name = name;
 		this.email = email;
+		this.password = password;
 		this.created_by = created_by;
 	}
 
@@ -90,8 +93,16 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", created_by=" + created_by + ", created_at="
-				+ created_at + "]";
+		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", created_by="
+				+ created_by + ", created_at=" + created_at + "]";
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }

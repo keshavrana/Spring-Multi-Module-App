@@ -62,7 +62,7 @@ public class HomeController {
 		if (result.hasErrors()) {
 			return "userfrom";
 		}
-		User user1 = new User(user.getName(), user.getEmail(), userDetails.getUsername());
+		User user1 = new User(user.getName(), user.getEmail(), userDetails.getUsername(), null);
 		userServices.adduser(user1);
 		redirectAttributes.addFlashAttribute("message", "User Created Successfully.");
 		return "redirect:/users";
