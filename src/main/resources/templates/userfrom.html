@@ -50,8 +50,20 @@
 								<p class="text-danger" th:each="e : ${#fields.errors('email')}"
 									th:text="${e}"></p>
 							</div>
+
+							<div class="form-group">
+								<label for="exampleInputEmail1">Password</label> <input
+									type="text" name="password" class="form-control"
+									th:value="${userform.password}"
+									th:classappend="${#fields.hasErrors('password') ? 'is-invalid':''}"
+									placeholder="Password">
+
+								<p class="text-danger"
+									th:each="e : ${#fields.errors('password')}" th:text="${e}"></p>
+							</div>
 							<div class="text-center">
-								<button type="submit" class="btn btn-primary me-2" th:text="${userform.id}==null ? 'Submit': 'Update'"></button>
+								<button type="submit" class="btn btn-primary me-2"
+									th:text="${userform.id}==null ? 'Submit': 'Update'"></button>
 								<button type="reset" class="btn btn-dark">Reset</button>
 							</div>
 						</form>

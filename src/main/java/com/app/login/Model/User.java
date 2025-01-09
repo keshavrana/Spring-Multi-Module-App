@@ -22,6 +22,7 @@ public class User {
 	@NotEmpty(message = "Email is required")
 	@Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "Invalid email address")
 	private String email;
+	@NotEmpty(message="Password is Required")
 	private String password;
 	private String created_by;
 	private LocalDate created_at;

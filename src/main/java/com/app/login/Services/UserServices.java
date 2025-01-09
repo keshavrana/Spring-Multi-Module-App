@@ -20,8 +20,13 @@ public class UserServices {
 		return userRepository.findAll();
 	}
 
-	public User adduser(User user) {
-		return userRepository.save(user);
+	public User adduser(User user, String CreatedBy) {
+		User user1 = new User();
+		user1.setName(user.getName());
+		user1.setEmail(user.getEmail());
+		user1.setCreated_by(CreatedBy);
+		user1.setPassword(user.getPassword());
+		return userRepository.save(user1);
 	}
 
 	public void delteUserById(Long id) {
@@ -35,7 +40,13 @@ public class UserServices {
 	}
 
 	public void updateUser(User user) {
-		userRepository.save(user);
+
+		User existsUser = userRepository.findById(user.getId())
+				.orElseThrow(() -> new RuntimeException("User Not Found"));
+		existsUser.setName(user.getName());
+		existsUser.setEmail(user.getEmail());
+		existsUser.setPassword(user.getPassword());
+		userRepository.save(existsUser);
 	}
 
 }
