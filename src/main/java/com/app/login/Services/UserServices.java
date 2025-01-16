@@ -2,6 +2,7 @@ package com.app.login.Services;
 
 import java.util.List;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.app.login.Model.User;
@@ -11,6 +12,8 @@ import com.app.login.Repository.UserRepository;
 public class UserServices {
 
 	private final UserRepository userRepository;
+
+	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
 	public UserServices(UserRepository userRepository) {
 		this.userRepository = userRepository;
@@ -25,7 +28,7 @@ public class UserServices {
 		user1.setName(user.getName());
 		user1.setEmail(user.getEmail());
 		user1.setCreated_by(CreatedBy);
-		user1.setPassword(user.getPassword());
+		user1.setPassword(encoder.encode(user.getPassword()));
 		return userRepository.save(user1);
 	}
 
@@ -45,7 +48,6 @@ public class UserServices {
 				.orElseThrow(() -> new RuntimeException("User Not Found"));
 		existsUser.setName(user.getName());
 		existsUser.setEmail(user.getEmail());
-		existsUser.setPassword(user.getPassword());
 		userRepository.save(existsUser);
 	}
 
