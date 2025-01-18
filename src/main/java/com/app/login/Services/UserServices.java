@@ -28,6 +28,7 @@ public class UserServices {
 		user1.setName(user.getName());
 		user1.setEmail(user.getEmail());
 		user1.setCreated_by(CreatedBy);
+		user1.setRole(user.getRole());
 		user1.setPassword(encoder.encode(user.getPassword()));
 		return userRepository.save(user1);
 	}
@@ -48,6 +49,7 @@ public class UserServices {
 				.orElseThrow(() -> new RuntimeException("User Not Found"));
 		existsUser.setName(user.getName());
 		existsUser.setEmail(user.getEmail());
+		existsUser.setRole(user.getRole());
 		userRepository.save(existsUser);
 	}
 

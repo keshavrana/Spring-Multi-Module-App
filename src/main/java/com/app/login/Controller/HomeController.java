@@ -1,6 +1,7 @@
 package com.app.login.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -50,6 +51,9 @@ public class HomeController {
 	}
 
 	@GetMapping("/adduser")
+//	For Single Role
+//	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 	public String addUser(Model model) {
 		model.addAttribute("userform", new User());
 		return "userfrom";
@@ -62,7 +66,7 @@ public class HomeController {
 		if (result.hasErrors()) {
 			return "userfrom";
 		}
-		userServices.adduser(user,userDetails.getUsername());
+		userServices.adduser(user, userDetails.getUsername());
 		redirectAttributes.addFlashAttribute("message", "User Created Successfully.");
 		return "redirect:/users";
 	}

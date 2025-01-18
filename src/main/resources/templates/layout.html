@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" th:fragment="parent(content,title,script)">
+<html lang="en" th:fragment="parent(content,title,script)"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -47,7 +48,9 @@
 									class="count bg-success"></span>
 							</div>
 							<div class="profile-name">
-								<h5 class="mb-0 font-weight-normal">Keshav Rana</h5>
+								<h5 style="text-transform: capitalize;"
+									class="mb-0 font-weight-normal"
+									sec:authentication="principal.username"></h5>
 								<span>Software Developer</span>
 							</div>
 						</div>
@@ -340,8 +343,9 @@
 								<div class="navbar-profile">
 									<img class="img-xs rounded-circle"
 										src="../../../assets/images/faces/face15.jpg" alt="">
-									<p class="mb-0 d-none d-sm-block navbar-profile-name">Keshav
-										Rana</p>
+									<p class="mb-0 d-none d-sm-block navbar-profile-name"
+										style="text-transform: capitalize;"
+										sec:authentication="principal.username"></p>
 									<i class="mdi mdi-menu-down d-none d-sm-block"></i>
 								</div>
 						</a>
