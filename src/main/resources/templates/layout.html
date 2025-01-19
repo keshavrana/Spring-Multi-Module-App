@@ -48,9 +48,22 @@
 									class="count bg-success"></span>
 							</div>
 							<div class="profile-name">
-								<h5 style="text-transform: capitalize;"
-									class="mb-0 font-weight-normal"
-									sec:authentication="principal.username"></h5>
+
+								<div
+									th:if="${#authentication instanceof T(org.springframework.security.authentication.UsernamePasswordAuthenticationToken)}">
+
+									<h5 style="text-transform: capitalize;"
+										class="mb-0 font-weight-normal"
+										sec:authentication="principal.username"></h5>
+								</div>
+								<div
+									th:if="${#authentication instanceof T(org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken)}">
+
+									<h5 style="text-transform: capitalize;"
+										class="mb-0 font-weight-normal"
+										th:text="${#authentication.principal.attributes['name']}"></h5>
+								</div>
+
 								<span>Software Developer</span>
 							</div>
 						</div>
@@ -343,9 +356,20 @@
 								<div class="navbar-profile">
 									<img class="img-xs rounded-circle"
 										src="../../../assets/images/faces/face15.jpg" alt="">
-									<p class="mb-0 d-none d-sm-block navbar-profile-name"
-										style="text-transform: capitalize;"
-										sec:authentication="principal.username"></p>
+
+
+									<div
+										th:if="${#authentication instanceof T(org.springframework.security.authentication.UsernamePasswordAuthenticationToken)}">
+										<p class="mb-0 d-none d-sm-block navbar-profile-name"
+											style="text-transform: capitalize;"
+											sec:authentication="principal.username"></p>
+									</div>
+									<div
+										th:if="${#authentication instanceof T(org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken)}">
+										<p class="mb-0 d-none d-sm-block navbar-profile-name"
+											style="text-transform: capitalize;"
+											th:text="${#authentication.principal.attributes['name']}"></p>
+									</div>
 									<i class="mdi mdi-menu-down d-none d-sm-block"></i>
 								</div>
 						</a>
