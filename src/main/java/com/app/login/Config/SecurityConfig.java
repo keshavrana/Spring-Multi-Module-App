@@ -25,24 +25,19 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http.csrf(csrf -> csrf.disable())
-				.authorizeHttpRequests(auth -> auth.requestMatchers("/assets/**", "/oauth2/**").permitAll() // Allow
-																											// static
-																											// assets
-																											// and
-																											// OAuth2
-																											// endpoints
-						.anyRequest().authenticated() // Protect all other endpoints
-				).formLogin(form -> form.loginPage("/login") // Your custom login page
-						.defaultSuccessUrl("/", true) // Redirect after successful form login
+				.authorizeHttpRequests(auth -> auth.requestMatchers("/assets/**", "/oauth2/**").permitAll()
+						.anyRequest().authenticated()
+				).formLogin(form -> form.loginPage("/login")
+						.defaultSuccessUrl("/", true)
 						.permitAll())
-				.logout(logout -> logout.logoutUrl("/logout") // URL to trigger logout
-						.logoutSuccessUrl("/login?logout") // Redirect to login page after logout
-						.invalidateHttpSession(true) // Invalidate session
-						.deleteCookies("JSESSIONID") // Clear cookies
+				.logout(logout -> logout.logoutUrl("/logout")
+						.logoutSuccessUrl("/login?logout")
+						.invalidateHttpSession(true)
+						.deleteCookies("JSESSIONID")
 						.permitAll())
-				.oauth2Login(oauth2 -> oauth2.loginPage("/login") // Reuse the custom login page for OAuth2
-						.defaultSuccessUrl("/", true) // Redirect after successful OAuth2 login
-						.failureUrl("/login?error=true") // Redirect to login page on failure
+				.oauth2Login(oauth2 -> oauth2.loginPage("/login")
+						.defaultSuccessUrl("/", true)
+						.failureUrl("/login?error=true")
 						.userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService)))
 				.build();
 	}

@@ -9,6 +9,9 @@ import com.app.login.Model.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 
 	User findByName(String username);
+	
+
+	User findByEmail(String email);
 
 
 }

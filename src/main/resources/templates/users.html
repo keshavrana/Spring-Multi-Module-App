@@ -24,12 +24,13 @@
 			<div class="col-lg-12 grid-margin stretch-card">
 				<div class="card">
 					<div class="card-body">
-						<!-- <p>
+						<!-- 	<p>
 							Role: <span sec:authentication="principal.authorities"></span>
-						</p>
+						</p> 
 						<p>
 							Logged in as: <span sec:authentication="principal.username"></span>
 						</p> -->
+
 						<a href="adduser" sec:authorize="hasRole('ADMIN')">
 							<button class="btn btn-primary" style="float: right;">Add
 								User</button>
