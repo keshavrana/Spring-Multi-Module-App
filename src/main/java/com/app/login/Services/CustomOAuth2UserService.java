@@ -29,10 +29,19 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 		String email = oAuth2User.getAttribute("email");
 		String name = oAuth2User.getAttribute("name");
 
-		User user = userRepo.findByEmail(email);
+		User user = null;
+		if (email != null) {
+			user = userRepo.findByEmail(email);
+		} else {
+			user = userRepo.findByName(name);
+		}
 		if (user == null) {
 			user = new User();
-			user.setEmail(email);
+			if (email != null) {
+				user.setEmail(email);
+			} else {
+				user.setEmail("github@gmail.com");
+			}
 			user.setName(name);
 			user.setPassword(name);
 			user.setRole("USER");
