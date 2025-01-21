@@ -53,14 +53,14 @@
 									th:if="${#authentication instanceof T(org.springframework.security.authentication.UsernamePasswordAuthenticationToken)}">
 
 									<h5 style="text-transform: capitalize;"
-										class="mb-0 font-weight-normal"
+										class="mb-0 font-weight-normal" id="userName"
 										sec:authentication="principal.username"></h5>
 								</div>
 								<div
 									th:if="${#authentication instanceof T(org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken)}">
 
 									<h5 style="text-transform: capitalize;"
-										class="mb-0 font-weight-normal"
+										class="mb-0 font-weight-normal" id="userNameOauth"
 										th:text="${#authentication.principal.attributes['name']}"></h5>
 								</div>
 
@@ -121,6 +121,12 @@
 							class="mdi mdi-account-plus"></i>
 					</span> <span class="menu-title">Users</span> <i class="menu-arrow"></i>
 				</a></li>
+
+				<li class="nav-item menu-items"><a class="nav-link"
+					href="/chat"> <span class="menu-icon"> <i
+							class="mdi mdi-chat-plus"></i>
+					</span> <span class="menu-title">Chat App</span> <i class="menu-arrow"></i>
+				</a></li>
 				<li class="nav-item menu-items"><a class="nav-link"
 					data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
 					aria-controls="ui-basic"> <span class="menu-icon"> <i
@@ -139,11 +145,7 @@
 						</ul>
 					</div></li>
 
-				<li class="nav-item menu-items"><a class="nav-link"
-					href="pages/tables/basic-table.html"> <span class="menu-icon">
-							<i class="mdi mdi-table-large"></i>
-					</span> <span class="menu-title">Tables</span> <i class="menu-arrow"></i>
-				</a></li>
+
 				<li class="nav-item menu-items"><a class="nav-link"
 					href="pages/charts/chartjs.html"> <span class="menu-icon">
 							<i class="mdi mdi-chart-bar"></i>

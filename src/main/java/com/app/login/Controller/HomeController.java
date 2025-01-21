@@ -1,6 +1,8 @@
 package com.app.login.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.app.login.Model.ChatMessage;
 import com.app.login.Model.User;
 import com.app.login.Services.UserServices;
 
@@ -97,4 +100,20 @@ public class HomeController {
 		return "redirect:/users";
 
 	}
+
+	// Chat Application Routings
+
+	
+	@MessageMapping("/sendMessage")
+	@SendTo("/topic/messages")
+	public ChatMessage sendMessage(ChatMessage message) {
+		return message;
+	}
+	
+	@GetMapping("/chat")
+	public String Chat() {
+		return "chat";
+	}
+	
+
 }
