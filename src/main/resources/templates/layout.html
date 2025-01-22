@@ -26,6 +26,39 @@
 <link rel="stylesheet" href="/assets/css/style.css">
 <!-- End layout styles -->
 <link rel="shortcut icon" href="/assets/images/favicon.png" />
+<style>
+.chat-box {
+	height:278px;
+	max-height: 300px;
+	overflow-y: auto;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius:0.25rem;
+	background-color: #191c24;
+}
+
+.message {
+	padding: 8px 12px;
+	margin: 5px 0;
+	border-radius: 15px;
+	max-width: 60%;
+	word-wrap: break-word;
+	display: inline-block;
+	clear: both;
+}
+
+.message.sender {
+	background-color: #35861a;
+	margin-left: auto;
+	text-align: right;
+}
+
+.message.receiver {
+	background-color: #8f0b0b;
+	margin-right: auto;
+	text-align: left;
+}
+</style>
 </head>
 <body>
 	<div class="container-scroller">

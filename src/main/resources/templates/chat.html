@@ -7,7 +7,6 @@
 </head>
 <body>
 	<div class="content-wrapper" id="content">
-
 		<div class="row">
 			<div class="col-lg-12 grid-margin stretch-card">
 				<div class="card">
@@ -16,6 +15,7 @@
 							<h2 class="text-center mb-4">Chat Application</h2>
 							<div class="card">
 								<div class="card-body chat-box" id="chatBox"></div>
+								<br>
 								<div class="card-footer">
 									<div class="input-group">
 										<input type="text" id="messageInput" class="form-control"
@@ -54,12 +54,31 @@
 	}
 
 	function showMessage(message) {
-		var chatBox = document.getElementById('chatBox');
-		var messageElement = document.createElement('div');
-		messageElement.className = "message";
-		messageElement.innerText = `${message.sender}: ${message.content}`;
+		const chatBox = document.getElementById('chatBox');
+		const messageElement = document.createElement('div');
+		const currentUserName = getCurrentUserName();
+		if (message.sender === currentUserName) {
+			messageElement.className = "message sender";
+		} else {
+			messageElement.className = "message receiver";
+		}
+		messageElement.innerHTML = `<strong>${message.sender}:</strong> ${message.content}`;
 		chatBox.appendChild(messageElement);
+		const lineBreak = document.createElement('br');
+		chatBox.appendChild(lineBreak);
 		chatBox.scrollTop = chatBox.scrollHeight;
+	}
+
+	function getCurrentUserName() {
+		const userNameElement = document.getElementById('userName');
+		if (userNameElement) {
+			return userNameElement.innerText;
+		}
+		const userNameOauthElement = document.getElementById('userNameOauth');
+		if (userNameOauthElement) {
+			return userNameOauthElement.innerText;
+		}
+		return 'Unknown';
 	}
 
 	function sendMessage() {
