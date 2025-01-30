@@ -115,5 +115,12 @@ public class HomeController {
 		return "chat";
 	}
 	
+	// Shopping Application Route
+	
+	@GetMapping("/shopping")
+	public String Shopping() {
+		return "shopping";
+	}
+	
 
 }
