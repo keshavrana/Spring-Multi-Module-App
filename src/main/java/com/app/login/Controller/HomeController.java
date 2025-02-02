@@ -1,5 +1,8 @@
 package com.app.login.Controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -15,11 +18,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.app.login.Model.ChatMessage;
 import com.app.login.Model.User;
 import com.app.login.Services.UserServices;
+import com.stripe.exception.StripeException;
+import com.stripe.model.Customer;
+import com.stripe.model.PaymentIntent;
+import com.stripe.param.CustomerCreateParams;
+import com.stripe.param.PaymentIntentCreateParams;
 
 import jakarta.validation.Valid;
 
@@ -103,24 +113,64 @@ public class HomeController {
 
 	// Chat Application Routings
 
-	
 	@MessageMapping("/sendMessage")
 	@SendTo("/topic/messages")
 	public ChatMessage sendMessage(ChatMessage message) {
 		return message;
 	}
-	
+
 	@GetMapping("/chat")
 	public String Chat() {
 		return "chat";
 	}
-	
+
 	// Shopping Application Route
-	
+
 	@GetMapping("/shopping")
 	public String Shopping() {
 		return "shopping";
 	}
-	
+
+	@GetMapping("/cart")
+	public String Cart() {
+		return "cart";
+	}
+
+	@PostMapping("/create-payment")
+	@ResponseBody
+	public Map<String, String> createPaymentIntent(@RequestBody Map<String, Object> paymentData) {
+		Map<String, String> response = new HashMap<>();
+		try {
+			String customerName = (String) paymentData.get("customerName");
+			String customerEmail = (String) paymentData.get("customerEmail");
+			String customerAddress = (String) paymentData.get("customerAddress");
+			long amount = Long.parseLong(paymentData.get("amount").toString()) * 100;
+
+			CustomerCreateParams customerParams = CustomerCreateParams.builder()
+					.setName(customerName)
+					.setEmail(customerEmail)
+					.setAddress(CustomerCreateParams.Address.builder()
+							.setLine1(customerAddress)
+							.setCity("New Delhi") // city
+							.setState("Delhi")
+							.setCountry("IN")
+							.setPostalCode("110001")
+							.build())
+					.build();
+
+			Customer customer = Customer.create(customerParams);
+			PaymentIntentCreateParams params = PaymentIntentCreateParams.builder()
+					.setAmount(amount)
+					.setDescription("Software Developer")
+					.setCustomer(customer.getId())
+					.setCurrency("inr").build();
+			PaymentIntent intent = PaymentIntent.create(params);
+			response.put("clientSecret", intent.getClientSecret());
+			response.put("customerId", customer.getId());
+		} catch (StripeException e) {
+			response.put("error", e.getMessage());
+		}
+		return response;
+	}
 
 }
