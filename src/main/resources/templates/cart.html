@@ -117,7 +117,6 @@
           payButton.disabled = true;
           overlay.style.display = "flex";
           
-          
           const response = await fetch("/create-payment", {
               method: "POST",
               headers: { "Content-Type": "application/json" },

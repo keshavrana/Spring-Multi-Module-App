@@ -7,6 +7,6 @@ import com.stripe.Stripe;
 @Configuration
 public class StripePaymentConfig {
 	public StripePaymentConfig() {
-		Stripe.apiKey = "Your_Stripe_SecKey";
+		Stripe.apiKey = "sk_test_7ZHMOSp9nzcyJd4AS5ribCQX00JIq28utO";
 	}
 }
